@@ -80,7 +80,12 @@ The FastApi server will be running on [http://127.0.0.1:8000](http://127.0.0.1:8
 
 ```bash
 psql postgresql://root:root@localhost/test_db
-´´´
+```
+
+### Fast react component
+```bash
+rafce
+```
 
 ## Learn More
 
