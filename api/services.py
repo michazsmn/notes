@@ -19,7 +19,6 @@ def get_note_by_id(db : Session, id : int):
 def toggle_status(db : Session, id : int):
     note_query = db.query(notes).filter(notes.id == id).first()
     if note_query:
-        #note_query_dict = note_query.model_dump().items
         setattr(note_query, "completed", not getattr(note_query, "completed"))
         db.commit()
         db.refresh(note_query)

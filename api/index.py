@@ -9,8 +9,12 @@ app = FastAPI()
 
 @app.get("/notes/", response_model=list[Note])
 async def get_all_notes(db : Session = Depends(get_db)):
-    return get_notes(db)
-
+    all_notes = get_notes(db)
+    if all_notes:
+        return all_notes
+    else:
+        raise HTTPException(status_code=404, detail="Notes empty")
+    
 @app.post("/notes/", response_model=Note)
 async def post_notes(note : NoteIn, db : Session = Depends(get_db)):
     return create_note(db, note)
@@ -21,7 +25,7 @@ async def update_note(id : int, db : Session = Depends(get_db)):
     if db_update:
         return db_update
     else:
-        raise HTTPException(status_code=404, detail="invalid id")
+        raise HTTPException(status_code=404, detail="Invalid id")
 
 @app.delete("/notes/{id}", response_model=Note)
 async def delete_note(id : int, db : Session = Depends(get_db)):
